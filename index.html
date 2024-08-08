@@ -1,7 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Art Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header p {
+            margin: 5px 0 0;
+        }
+
+        .gallery {
+            column-count: 3;
+            column-gap: 10px;
+            margin: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .gallery {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery {
+                column-count: 1;
+            }
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <header>
+        <h1>My Art Portfolio</h1>
+        <p>A collection of my artwork</p>
+    </header>
+
+    <div class="gallery" id="gallery">
+        <!-- Images will be automatically inserted here -->
+    </div>
+
+    <script>
+        const gallery = document.getElementById('gallery');
+
+        fetch('styles.csv')
+            .then(response => response.text())
+            .then(data => {
+                const images = data.trim().split('\n').map(line => line.split(','));
+                images.forEach(image => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = `./images/${image[0].trim()}`;
+                    if (image[1]) imgElement.style.width = image[1].trim();
+                    if (image[2]) imgElement.style.height = image[2].trim();
+                    gallery.appendChild(imgElement);
+                });
+            })
+            .catch(error => console.error('Error loading images:', error));
+    </script>
 </body>
 </html>
