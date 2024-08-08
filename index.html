@@ -65,18 +65,17 @@
     </div>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             var folder = "images/";
 
-            $.ajax({
-                url : folder,
-                success: function (data) {
-                    $(data).find("a").attr("href", function (i, val) {
-                        if(val.match(/\.(jpe?g|png|gif)$/)) { 
-                            $("#gallery").append("<img src='" + folder + val + "'>");
-                        } 
-                    });
-                }
+            $.getJSON('images.json', function(data) {
+                $.each(data, function(index, value) {
+                    $("#gallery").append(`
+                        <div>
+                            <img src="${folder}${value}">
+                        </div>
+                    `);
+                });
             });
         });
     </script>
