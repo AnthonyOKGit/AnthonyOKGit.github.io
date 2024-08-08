@@ -70,7 +70,7 @@
             .then(data => {
                 const images = data.trim().split('\n').map(line => line.split(','));
                 images.forEach(image => {
-                    const imgElement = document.createElement('img');
+                    const imgElement = `https://yourusername.github.io/your-repo-name/images/${image[0].trim()}`;
                     imgElement.src = `./images/${image[0].trim()}`;
                     if (image[1]) imgElement.style.width = image[1].trim();
                     if (image[2]) imgElement.style.height = image[2].trim();
